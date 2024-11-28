@@ -1,0 +1,16 @@
+node_modules
+asset-download
+run/
+
+
+# client
+client/.next/
+client/node_modules/
+client/dist/
+client/.env.local
+
+# server
+
+server/dist/
+server/node_modules/
+server/.env
