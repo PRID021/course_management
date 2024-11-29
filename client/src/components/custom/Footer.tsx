@@ -3,7 +3,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <div className="footer">
-      <p>&copy; 2024 EDROH. All Rights Reserved.</p>
+      <p>&copy;2024 HOPH - All Rights Reserved.</p>
 
       <div className="footer__links ">
         {["About", "Privacy Policy", "Licensing", "Contact"].map((item) => (

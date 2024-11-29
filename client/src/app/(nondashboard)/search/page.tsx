@@ -52,11 +52,13 @@ const Search = () => {
       <h2 className="search__subtitle">{courses.length}</h2>
       <div className="search__content">
         <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
+          initial={{ y: 40, opacity: 0.25 }}
+          animate={{ y: 0, opacity: 1 }}
           transition={{
             duration: 0.5,
-            delay: 0.2,
+          }}
+          viewport={{
+            once: true,
           }}
           className="search__courses-grid"
         >
@@ -73,7 +75,7 @@ const Search = () => {
         {selectedCourse && (
           <motion.div
             initial={{ y: 40, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{
               duration: 0.5,
               delay: 0.5,

@@ -1,12 +1,10 @@
-.PHONY: server
-.PHONY: client
+.PHONY: db server client
 
 db:
 	cd run && \
-	start /B java -Djava.library.path=.\dynamodb_local_latest\DynamoDBLocal_lib \
+	java -Djava.library.path=.\dynamodb_local_latest\DynamoDBLocal_lib \
 		-jar .\dynamodb_local_latest\DynamoDBLocal.jar \
 		-sharedDb -dbPath . && \
-	timeout 2 && \
 	aws dynamodb list-tables --endpoint-url http://localhost:8000
 
 server:
@@ -17,3 +15,9 @@ server:
 client:
 	cd client && \
 	npm run dev
+
+
+start:
+	$(MAKE) db && \
+	start cmd /C "cd server && npm run seed && npm run dev"
+	$(MAKE) client

@@ -1,10 +1,4 @@
-import React from "react";
-import {
-  ControllerRenderProps,
-  FieldValues,
-  useFormContext,
-  useFieldArray,
-} from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import {
   FormControl,
   FormField,
@@ -13,8 +7,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -23,13 +15,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Edit, X, Plus } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { registerPlugin } from "filepond";
-import { FilePond } from "react-filepond";
-import "filepond/dist/filepond.min.css";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import "filepond/dist/filepond.min.css";
+import { Edit, Plus, X } from "lucide-react";
+import React from "react";
+import { FilePond } from "react-filepond";
+import {
+  ControllerRenderProps,
+  FieldValues,
+  useFieldArray,
+  useFormContext,
+} from "react-hook-form";
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -106,7 +106,7 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
                 <SelectItem
                   key={option.value}
                   value={option.value}
-                  className={`cursor-pointer hover:!bg-gray-100 hover:!text-customgreys-darkGrey`}
+                  className={`cursor-pointer hover:!bg-gray-100 hover:!text-customgreys-darkGrey text-primary-100`}
                 >
                   {option.label}
                 </SelectItem>

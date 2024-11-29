@@ -104,7 +104,7 @@ const Landing = () => {
 
       <motion.div
         initial={{ y: 20, opacity: 0.5 }}
-        whileInView={{ y: 0, opacity: 1 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{
           duration: 0.2,
         }}
@@ -142,9 +142,9 @@ const Landing = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{
                   duration: 0.5,
-                  delay: index * 0.2,
+                  delay: 0.2 * index,
                 }}
-                viewport={{ amount: 0.3, once: true }}
+                viewport={{ once: true }}
               >
                 <CourseCardSearch
                   course={course}

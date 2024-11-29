@@ -21,6 +21,10 @@ body,
   @apply bg-customgreys-primarybg;
 }
 
+.cl-internal-df7v37 {
+  visibility: hidden !important;
+}
+
 :root {
   --radius: 8px;
 }
