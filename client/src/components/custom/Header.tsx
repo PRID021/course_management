@@ -6,7 +6,7 @@ function Header({ title, subtitle, rightElement }: HeaderProps) {
         <p className="header__subtitle">{subtitle}</p>
       </div>
 
-      {rightElement && <div> rightElement</div>}
+      {rightElement && <div> {rightElement}</div>}
     </div>
   );
 }
