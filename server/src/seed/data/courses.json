@@ -136,13 +136,15 @@
             "chapterId": "c3d4e5f6-g7h8-i9j0-k1l2-m3n4o5p6q7r8",
             "type": "Video",
             "title": "Introduction to Neural Networks",
-            "content": "https://example.com/videos/neural-networks-intro.mp4",
+            "content": "Sintel Trailer",
             "videoLength": 1200,
             "comments": [],
-            "videoUrl": "https://example.com/videos/neural-networks-intro.mp4",
+            "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+            "video": "https://www.w3schools.com/html/mov_bbb.mp4",
             "videoUniqueId": "vid_004",
             "videoType": "hls"
           },
+
           {
             "chapterId": "d4e5f6g7-h8i9-j0k1-l2m3-n4o5p6q7r8s9",
             "type": "Quiz",
@@ -326,8 +328,8 @@
             "chapterId": "g7h8i9j0-k1l2-m3n4-o5p6-q7r8s9t0u1v2",
             "type": "Video",
             "title": "What is Data Science?",
-            "content": "https://example.com/videos/what-is-data-science.mp4",
-            "video": "https://example.com/videos/what-is-data-science.mp4",
+            "content": "Big Buck Bunny",
+            "video": "https://www.w3schools.com/html/mov_bbb.mp4",
             "comments": []
           },
           {

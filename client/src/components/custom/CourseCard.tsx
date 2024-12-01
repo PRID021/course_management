@@ -1,17 +1,20 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
-  CardHeader,
   CardContent,
-  CardTitle,
   CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
+import Image from "next/image";
 
 const CourseCard = ({ course, onGoToCourse }: CourseCardProps) => {
   return (
-    <Card className="course-card group" onClick={() => onGoToCourse(course)}>
+    <Card
+      className="course-card group"
+      onClick={() => onGoToCourse(course)}
+    >
       <CardHeader className="course-card__header">
         <Image
           src={course.image || "/placeholder.png"}

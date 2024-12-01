@@ -23,7 +23,9 @@ function CompletionPage() {
           </Button>
         </p>
         <div className="completion__action">
-          <Link href="user/courses">Go to courses</Link>
+          <Link href="user/courses" scroll={false}>
+            Go to courses
+          </Link>
         </div>
       </div>
     </div>

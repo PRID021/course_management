@@ -5,9 +5,17 @@ import Header from "@/components/custom/Header";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { courseSchema } from "@/lib/schemas";
-import { centsToDollars, createCourseFormData } from "@/lib/utils";
+import {
+  centsToDollars,
+  createCourseFormData,
+  uploadAllVideos,
+} from "@/lib/utils";
 import { openSectionModal, setSections } from "@/state";
-import { useGetCourseQuery, useUpdateCourseMutation } from "@/state/api";
+import {
+  useGetCourseQuery,
+  useGetUploadVideoUrlMutation,
+  useUpdateCourseMutation,
+} from "@/state/api";
 import { useAppDispatch, useAppSelector } from "@/state/redux";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, Plus } from "lucide-react";
@@ -24,7 +32,7 @@ function CourseEditor() {
   const id = params.id as string;
   const { data: course, isLoading, refetch } = useGetCourseQuery(id);
   const [updateCourse] = useUpdateCourseMutation();
-  // upload video functionality
+  const [getUploadVideoUrl] = useGetUploadVideoUrlMutation();
   const dispatch = useAppDispatch();
   const { sections } = useAppSelector((state) => state.global.courseEditor);
 
@@ -50,17 +58,20 @@ function CourseEditor() {
       });
       dispatch(setSections(course.sections || []));
     }
-  }, [course, methods]);
+  }, [course, dispatch, methods]);
 
   const onSubmit = async (data: CourseFormData) => {
     try {
-      const formData = createCourseFormData(data, sections);
-      const updatedCourse = await updateCourse({
-        courseId: id,
-        formData,
-      }).unwrap();
+      const updatedSections = await uploadAllVideos(
+        sections,
+        id,
+        getUploadVideoUrl
+      );
 
-      //   await uploadAllVideos(sections,updatedCourse.sections,id,uploadVideo)
+      const formData = createCourseFormData(data, updatedSections);
+
+      await updateCourse({ courseId: id, formData }).unwrap();
+      refetch();
     } catch (error) {
       console.error("Failed to update course: ", error);
     }

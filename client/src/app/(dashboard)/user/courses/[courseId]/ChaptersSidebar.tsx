@@ -1,16 +1,16 @@
-import { useState, useEffect, useRef } from "react";
+import Loading from "@/components/custom/Loading";
+import { useSidebar } from "@/components/ui/sidebar";
+import { useCourseProgressData } from "@/hooks/useCourseProgressData";
+import { cn } from "@/lib/utils";
 import {
+  CheckCircle,
   ChevronDown,
   ChevronUp,
   FileText,
-  CheckCircle,
   Trophy,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { useSidebar } from "@/components/ui/sidebar";
-import Loading from "@/components/custom/Loading";
-import { useCourseProgressData } from "@/hooks/useCourseProgressData";
+import { useEffect, useRef, useState } from "react";
 
 const ChaptersSidebar = () => {
   const router = useRouter();

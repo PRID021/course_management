@@ -14,13 +14,18 @@ export default function NonDashBoardNavBar() {
     <nav className="nondashboard-navbar">
       <div className="nondashboard-navbar__container">
         <div className="nondashboard-navbar__search">
-          <Link href={"/"} className="nondashboard-navbar__brand">
+          <Link
+            scroll={false}
+            href={"/"}
+            className="nondashboard-navbar__brand"
+          >
             HOPH
           </Link>
 
           <div className="flex items-center gap-4 mr-2">
             <div className="relative group">
               <Link
+                scroll={false}
                 href={"/search"}
                 className="nondashboard-navbar__search-input"
               >
@@ -62,6 +67,7 @@ export default function NonDashBoardNavBar() {
 
           <SignedOut>
             <Link
+              scroll={false}
               href={"/signin"}
               className="nondashboard-navbar__auth-button--login"
             >
@@ -69,6 +75,7 @@ export default function NonDashBoardNavBar() {
             </Link>
 
             <Link
+              scroll={false}
               href={"/signup"}
               className="nondashboard-navbar__auth-button--signup"
             >

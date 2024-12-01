@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 
 import { ClerkProvider } from "@clerk/nextjs";
+import { Suspense } from "react";
 import { Toaster } from "sonner";
 
 const dmSans = DM_Sans({
@@ -27,7 +28,9 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${dmSans.className}`}>
           <Providers>
-            <div className="root-layout">{children}</div>
+            <Suspense fallback={null}>
+              <div className="root-layout">{children}</div>
+            </Suspense>
             <Toaster />
           </Providers>
         </body>

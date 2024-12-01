@@ -1,4 +1,12 @@
 declare global {
+  interface Window {
+    Clerk?: {
+      session?: {
+        getToken: () => Promise<string | null>;
+      };
+    };
+  }
+
   interface PaymentMethod {
     methodId: string;
     type: string;

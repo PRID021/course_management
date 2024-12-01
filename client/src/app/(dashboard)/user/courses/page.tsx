@@ -1,87 +1,83 @@
 "use client";
 
+import CourseCard from "@/components/custom/CourseCard";
 import Header from "@/components/custom/Header";
 import Loading from "@/components/custom/Loading";
 import Toolbar from "@/components/custom/Toolbar";
-import { Button } from "@/components/ui/button";
-import {
-  useCreateCourseMutation,
-  useDeleteCourseMutation,
-  useGetCoursesQuery,
-} from "@/state/api";
+import { useGetUserErolledCoursesQuery } from "@/state/api";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 function UserCourses() {
   const router = useRouter();
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const {
     data: courses,
     isLoading,
     isError,
-  } = useGetCoursesQuery({ category: "all" });
-
-  const [createCourse] = useCreateCourseMutation();
-  const [deleteCourse] = useDeleteCourseMutation();
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  } = useGetUserErolledCoursesQuery(user?.id ?? "", {
+    skip: !isLoaded || !user,
+  });
 
   const filteredCourses = useMemo(() => {
     if (!courses) return [];
-    return courses.filter((course) => {
-      const matchSearch = course.title
+    return courses.filter((course: Course) => {
+      const matchesSearch = course.title
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
-
-      const matchCategory =
+      const matchesCategory =
         selectedCategory === "all" || course.category === selectedCategory;
-      return matchSearch && matchCategory;
+      return matchesSearch && matchesCategory;
     });
   }, [courses, searchTerm, selectedCategory]);
 
-  const handleEdit = (course: Course) => {
-    router.push(`/teacher/courses/${course.courseId}`);
-  };
-
-  const handleDelete = async (course: Course) => {
-    if (window.confirm("Are you sure you want to delete this course?.")) {
-      await deleteCourse(course.courseId).unwrap();
+  const handleGoToCourse = (course: Course) => {
+    if (
+      course.sections &&
+      course.sections.length > 0 &&
+      course.sections[0].chapters.length > 0
+    ) {
+      const firstChapter = course.sections[0].chapters[0];
+      router.push(
+        `/user/courses/${course.courseId}/chapters/${firstChapter.chapterId}`,
+        {
+          scroll: false,
+        }
+      );
+    } else {
+      router.push(`/user/courses/${course.courseId}`, {
+        scroll: false,
+      });
     }
   };
 
-  const handleCreateCourse = async () => {
-    if (!user) return;
-    const result = await createCourse({
-      teacherId: user.id,
-      teacherName: user.username || "Unknown Teacher",
-    }).unwrap();
-
-    router.push(`/teacher/courses/${result.courseId}`);
-  };
-
-  if (isLoading) return <Loading />;
-  if (isError || !courses) return <div>Error loading course.</div>;
+  if (!isLoaded || isLoading) return <Loading />;
+  if (!user) return <div>Please sign in to view your courses.</div>;
+  if (isError || !courses || courses.length === 0)
+    return <div>You are not enrolled in any courses yet.</div>;
 
   return (
-    <div className="teacher-courses">
-      <Header
-        title={"Courses"}
-        subtitle={"Browser your course"}
-        rightElement={
-          <Button
-            onClick={handleCreateCourse}
-            className="teacher-courses__header"
-          >
-            Create Course
-          </Button>
-        }
-      />
+    <div className="user-courses">
+      <Header title={"My Courses"} subtitle={"View your enrolled courses"} />
+
       <Toolbar
         onSearch={setSearchTerm}
         onCategoryChange={setSelectedCategory}
       />
+
+      <div className="user-courses__grid">
+        {filteredCourses.map((course) => (
+          <CourseCard
+            key={course.courseId}
+            course={course}
+            onGoToCourse={handleGoToCourse}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -23,6 +23,7 @@ export default function NavBar({ isCoursePage }: { isCoursePage: boolean }) {
           <div className="flex items-center gap-4">
             <div className="relative group">
               <Link
+              scroll={false}
                 href={"/search"}
                 className={cn("dashboard-navbar__search-input", {
                   "!bg-customgreys-secondarybg": isCoursePage,

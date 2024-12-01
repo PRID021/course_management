@@ -108,7 +108,7 @@ function ChapterModel() {
         <Form {...methods}>
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
-            className="section-modal__form"
+            className="chapter-modal__form"
           >
             <CustomFormField
               name={"title"}

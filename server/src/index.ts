@@ -1,3 +1,8 @@
+import {
+  clerkMiddleware,
+  createClerkClient,
+  requireAuth,
+} from "@clerk/express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -5,50 +10,64 @@ import * as dynamoose from "dynamoose";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
-
-import { clerkMiddleware, createClerkClient, requireAuth } from "@clerk/express";
-
+import serverless from "serverless-http";
 
 // ROUTE IMPORT
 import courseRoutes from "./routes/coursesRoute";
 import transactionRoute from "./routes/transactionsRoute";
+import userCourseProgressRoute from "./routes/userCourseProgressRoute";
 import userClerkRoute from "./routes/usersClerkRoute";
+import seed from "./seed/seedDynamodb";
 
 // CONFIGURATIONS
-dotenv.config()
+dotenv.config();
 
 const isProduction = process.env.NODE_ENV === "production";
 
 if (!isProduction) {
-    dynamoose.aws.ddb.local()
+  dynamoose.aws.ddb.local();
 }
 
-
 export const clerkClient = createClerkClient({
-    secretKey: process.env.CLERK_SECRET_KEY
-})
+  secretKey: process.env.CLERK_SECRET_KEY,
+});
 
 const app = express();
-app.use(express.json())
-app.use(helmet())
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }))
-app.use(morgan("common"))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cors())
-app.use(clerkMiddleware())
-
+app.use(express.json());
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(morgan("common"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
+app.use(clerkMiddleware());
 
 // ROUTES
 
-app.use("/courses", courseRoutes)
-app.use("/users/clerk", requireAuth(), userClerkRoute)
-app.use("/transactions", requireAuth(), transactionRoute)
-// SERVER
+app.use("/courses", courseRoutes);
+app.use("/users/clerk", requireAuth(), userClerkRoute);
+app.use("/users/course-progress", requireAuth(), userCourseProgressRoute);
+app.use("/transactions", requireAuth(), transactionRoute);
 
-const port = process.env.PORT || 3000
+// SERVER
+const port = process.env.PORT || 3000;
 if (!isProduction) {
-    app.listen(port, () => {
-        console.log(`Server running on port ${port}`)
-    })
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
 }
+
+// aws production enviroment.
+
+const serverlessApp = serverless(app);
+export const handler = async (event: any, context: any) => {
+  if (event.action === "seed") {
+    await seed();
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: "Data seed successfully" }),
+    };
+  } else {
+    return serverless(event, context);
+  }
+};

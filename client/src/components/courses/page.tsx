@@ -1,10 +1,10 @@
 "use client";
 
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
-import Toolbar from "@/components/Toolbar";
+import Header from "@/components/custom/Header";
+import Loading from "@/components/custom/Loading";
+import Toolbar from "@/components/custom/Toolbar";
 import CourseCard from "@/components/custom/CourseCard";
-import { useGetUserEnrolledCoursesQuery } from "@/state/api";
+import { useGetUserErolledCoursesQuery } from "@/state/api";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -19,7 +19,7 @@ const Courses = () => {
     data: courses,
     isLoading,
     isError,
-  } = useGetUserEnrolledCoursesQuery(user?.id ?? "", {
+  } = useGetUserErolledCoursesQuery(user?.id ?? "", {
     skip: !isLoaded || !user,
   });
 
