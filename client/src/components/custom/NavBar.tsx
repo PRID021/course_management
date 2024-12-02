@@ -23,7 +23,7 @@ export default function NavBar({ isCoursePage }: { isCoursePage: boolean }) {
           <div className="flex items-center gap-4">
             <div className="relative group">
               <Link
-              scroll={false}
+                scroll={false}
                 href={"/search"}
                 className={cn("dashboard-navbar__search-input", {
                   "!bg-customgreys-secondarybg": isCoursePage,
@@ -39,9 +39,7 @@ export default function NavBar({ isCoursePage }: { isCoursePage: boolean }) {
 
         <div className="dashboard-navbar__actions">
           <button className="nondashboard-navbar__notification-button">
-            <span className="nondashboard-navbar__notification-indicator">
-              {" "}
-            </span>
+            <span className="nondashboard-navbar__notification-indicator"></span>
             <Bell className="nondashboard-navbar__notification-icon" />
           </button>
 

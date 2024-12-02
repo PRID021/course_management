@@ -1228,7 +1228,7 @@ input[type="color"] {
 }
 
 .nondashboard-navbar__notification-button {
-  @apply relative w-7 h-7 hidden sm:inline sm:w-8 sm:h-8 bg-gray-800 rounded-full items-center justify-center;
+  @apply relative  w-7 h-7 hidden sm:inline sm:w-8 sm:h-8 bg-gray-800 rounded-full items-center justify-center;
 }
 
 .nondashboard-navbar__notification-indicator {
