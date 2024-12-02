@@ -231,15 +231,15 @@ input[type="color"] {
 }
 
 .landing__hero-content {
-  @apply basis-1/2 px-16 mx-auto;
+  @apply basis-1/2 px-4 sm:px-16 mx-auto;
 }
 
 .landing__title {
-  @apply text-4xl font-bold mb-4;
+  @apply text-2xl mt-8 sm:mt-0 sm:text-4xl font-bold sm:mb-4;
 }
 
 .landing__description {
-  @apply text-lg text-gray-400 mb-8;
+  @apply text-md sm:text-lg text-gray-400 my-4 sm:mb-8;
 }
 
 .landing__cta {
@@ -251,7 +251,7 @@ input[type="color"] {
 }
 
 .landing__hero-images {
-  @apply basis-1/2 h-full relative overflow-hidden rounded-r-lg;
+  @apply basis-1/2 h-full relative overflow-hidden  rounded-tl-lg rounded-tr-lg sm:rounded-none sm:rounded-r-lg  w-full;
 }
 
 .landing__hero-image {
@@ -288,15 +288,15 @@ input[type="color"] {
 
 /* Landing Skeleton */
 .landing-skeleton {
-  @apply w-3/4;
+  @apply w-full px-8 sm:w-3/4 sm:p-0;
 }
 
 .landing-skeleton__hero {
-  @apply flex justify-between items-center mt-12 h-[500px] rounded-lg bg-customgreys-secondarybg;
+  @apply flex flex-col-reverse sm:flex-row justify-between items-center mt-12 h-[500px] rounded-lg bg-customgreys-secondarybg;
 }
 
 .landing-skeleton__hero-content {
-  @apply basis-1/2 px-16 mx-auto;
+  @apply basis-1/2 px-4  sm:px-16 mx-auto w-full;
 }
 
 .landing-skeleton__title {
@@ -304,11 +304,11 @@ input[type="color"] {
 }
 
 .landing-skeleton__subtitle {
-  @apply h-4 w-96 mb-2;
+  @apply h-4 w-full sm:w-72 mb-2;
 }
 
 .landing-skeleton__subtitle-secondary {
-  @apply h-4 w-72 mb-8;
+  @apply h-4  w-2/3  sm:w-96 mb-8;
 }
 
 .landing-skeleton__button {
@@ -316,7 +316,7 @@ input[type="color"] {
 }
 
 .landing-skeleton__hero-image {
-  @apply basis-1/2 h-full rounded-r-lg;
+  @apply basis-1/2 h-full w-full mb-4 sm:mb-0;
 }
 
 .landing-skeleton__featured {
@@ -1212,7 +1212,7 @@ input[type="color"] {
 }
 
 .nondashboard-navbar__brand {
-  @apply font-bold text-lg sm:text-xl hover:text-customgreys-dirtyGrey;
+  @apply hidden sm:inline font-bold text-lg sm:text-xl hover:text-customgreys-dirtyGrey;
 }
 
 .nondashboard-navbar__search-input {
@@ -1228,7 +1228,7 @@ input[type="color"] {
 }
 
 .nondashboard-navbar__notification-button {
-  @apply relative w-7 h-7 sm:w-8 sm:h-8 bg-gray-800 rounded-full flex items-center justify-center;
+  @apply relative w-7 h-7 hidden sm:inline sm:w-8 sm:h-8 bg-gray-800 rounded-full items-center justify-center;
 }
 
 .nondashboard-navbar__notification-indicator {

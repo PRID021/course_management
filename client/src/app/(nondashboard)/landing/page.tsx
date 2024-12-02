@@ -13,14 +13,13 @@ const LoadingSkeleton = () => {
   return (
     <div className="landing-skeleton">
       <div className="landing-skeleton__hero">
-        <div className="landing-skeleton__hero-content">
-          <Skeleton className="landing-skeleton__title" />
-          <Skeleton className="landing-skeleton__subtitle" />
-          <Skeleton className="landing-skeleton__subtitle-secondary" />
+        <div className="landing-skeleton__hero-content ">
+          <Skeleton className="landing-skeleton__title " />
+          <Skeleton className="landing-skeleton__subtitle " />
+          <Skeleton className="landing-skeleton__subtitle-secondary  " />
           <Skeleton className="landing-skeleton__button" />
         </div>
-
-        <Skeleton className="landing-skeleton__hero-image" />
+        <Skeleton className="landing-skeleton__hero-image rounded-b-none sm:rounded-l-none" />
       </div>
 
       <div className="landing-skeleton__featured">
@@ -48,7 +47,7 @@ const Landing = () => {
   const { data: courses, isLoading, isError } = useGetCoursesQuery({});
 
   const handleCourseClick = (courseId: string) => {
-    router.push(`/search?id=${courseId}`,{
+    router.push(`/search?id=${courseId}`, {
       scroll: false,
     });
   };
@@ -71,7 +70,7 @@ const Landing = () => {
         transition={{
           duration: 0.5,
         }}
-        className="landing__hero"
+        className="landing__hero flex-col-reverse sm:flex-row "
       >
         <div className="landing__hero-content">
           <h1 className="landing__title">Courses</h1>
@@ -95,7 +94,7 @@ const Landing = () => {
               alt={`Hero Banner ${index + 1}`}
               fill
               priority={index === currentImage}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw  "
               className={`landing__hero-image ${
                 index === currentImage && "landing__hero-image--active"
               }`}
