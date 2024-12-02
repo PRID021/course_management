@@ -1,22 +1,25 @@
-import { useState, useEffect, useRef } from "react";
+import Loading from "@/components/custom/Loading";
+import { useSidebar } from "@/components/ui/sidebar";
+import { useCourseProgressData } from "@/hooks/useCourseProgressData";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 import {
+  CheckCircle,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ChevronUp,
   FileText,
-  CheckCircle,
   Trophy,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { useSidebar } from "@/components/ui/sidebar";
-import Loading from "@/components/custom/Loading";
-import { useCourseProgressData } from "@/hooks/useCourseProgressData";
+import { useEffect, useRef, useState } from "react";
 
 const ChaptersSidebar = () => {
   const router = useRouter();
   const { setOpen } = useSidebar();
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
-
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const {
     user,
     course,
@@ -31,7 +34,7 @@ const ChaptersSidebar = () => {
 
   useEffect(() => {
     setOpen(false);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [setOpen]);
 
   if (isLoading) return <Loading />;
   if (!user) return <div>Please sign in to view course progress.</div>;
@@ -51,29 +54,50 @@ const ChaptersSidebar = () => {
     });
   };
 
+  const toggleSidebar = () => {
+    setIsCollapsed((prev) => !prev);
+  };
+
   return (
-    <div ref={sidebarRef} className="chapters-sidebar">
-      <div className="chapters-sidebar__header">
-        <h2 className="chapters-sidebar__title">{course.title}</h2>
+    <motion.div
+      ref={sidebarRef}
+      className="chapters-sidebar relative group"
+      initial={{ width: "16px" }}
+      animate={{ width: isCollapsed ? "16px" : "350px" }}
+      whileHover={{ width: isCollapsed ? "32px" : "350px" }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="chapters-sidebar__header ">
+        <button
+          onClick={toggleSidebar}
+          className="absolute top-1/2 right-0 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 "
+        >
+          {isCollapsed ? <ChevronRight size={32} /> : <ChevronLeft size={32} />}
+        </button>
+        {!isCollapsed && (
+          <h2 className="chapters-sidebar__title">{course.title}</h2>
+        )}
         <hr className="chapters-sidebar__divider" />
       </div>
-      {course.sections.map((section, index) => (
-        <Section
-          key={section.sectionId}
-          section={section}
-          index={index}
-          sectionProgress={userProgress.sections.find(
-            (s) => s.sectionId === section.sectionId
-          )}
-          chapterId={chapterId as string}
-          courseId={courseId as string}
-          expandedSections={expandedSections}
-          toggleSection={toggleSection}
-          handleChapterClick={handleChapterClick}
-          updateChapterProgress={updateChapterProgress}
-        />
-      ))}
-    </div>
+
+      {!isCollapsed &&
+        course.sections.map((section, index) => (
+          <Section
+            key={section.sectionId}
+            section={section}
+            index={index}
+            sectionProgress={userProgress.sections.find(
+              (s) => s.sectionId === section.sectionId
+            )}
+            chapterId={chapterId as string}
+            courseId={courseId as string}
+            expandedSections={expandedSections}
+            toggleSection={toggleSection}
+            handleChapterClick={handleChapterClick}
+            updateChapterProgress={updateChapterProgress}
+          />
+        ))}
+    </motion.div>
   );
 };
 
