@@ -11,11 +11,12 @@ function WizardStepper({ currentStep }: WizardStepperProps) {
             <div className="wizard-stepper__step">
               <div
                 className={cn("wizard-stepper__circle", {
-                  "wizard-stepper__circle--completed":
+                  "wizard-stepper__circle--completed !hidden sm:!flex":
                     currentStep > step || (currentStep === 3 && step == 3),
                   "wizard-stepper__circle--current":
                     currentStep === step && step !== 3,
                   "wizard-stepper__circle--upcoming": currentStep < step,
+                  " !hidden sm:!flex": currentStep !== step,
                 })}
               >
                 {currentStep > step || (currentStep === 3 && step == 3) ? (
@@ -29,6 +30,8 @@ function WizardStepper({ currentStep }: WizardStepperProps) {
                 className={cn("wizard-stepper__text", {
                   "wizard-stepper__text--active": currentStep >= step,
                   "wizard-stepper__text--inactive": currentStep < step,
+                  " !hidden sm:!flex": currentStep !== step,
+                  "!hidden sm:!flex": currentStep === 3,
                 })}
               >
                 {step == 1 && "Details"}
@@ -39,9 +42,10 @@ function WizardStepper({ currentStep }: WizardStepperProps) {
 
             {index < 2 && (
               <div
-                className={cn("wizard-stepper__line", {
+                className={cn("wizard-stepper__line hidden sm:block", {
                   "wizard-stepper__line--completed": currentStep > step,
                   "wizard-stepper__line--incomplete": currentStep <= step,
+                  "!hidden sm:!flex": currentStep !== step,
                 })}
               />
             )}

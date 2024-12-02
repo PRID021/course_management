@@ -29,13 +29,13 @@ const Search = () => {
 
   const handleCourseSelect = (course: Course): void => {
     setSelectedCourse(course);
-    router.push(`/search?id=${course.courseId}`,{
-      scroll: false,
+    router.push(`/search?id=${course.courseId}`, {
+      scroll: true,
     });
   };
 
   const handleEnrollNow = (courseId: string) => {
-    router.push(`/checkout?step=1&id=${courseId}&showSignUp=false`,{
+    router.push(`/checkout?step=1&id=${courseId}&showSignUp=false`, {
       scroll: false,
     });
   };
