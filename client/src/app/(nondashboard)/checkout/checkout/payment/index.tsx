@@ -31,12 +31,12 @@ const PaymentPageContent = () => {
       return;
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_LOCAL_URL
-      ? `http://${process.env.NEXT_PUBLIC_LOCAL_URL}`
-      : process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : undefined;
-      
+    if (!process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY) {
+      throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not set");
+    }
+
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
     const result = await stripe.confirmPayment({
       elements,
       confirmParams: {

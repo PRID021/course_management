@@ -27,7 +27,7 @@ function SelectedCourse({ course, handleEnrollNow }: SelectedCourseProps) {
           <span className="selected-course__price">
             {formatPrice(course.price)}
           </span>
-          <Button onClick={() => handleEnrollNow(course.courseId)}>
+          <Button onClick={() => handleEnrollNow(course.courseId)} className="bg-primary-700">
             Enroll Now
           </Button>
         </div>

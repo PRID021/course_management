@@ -43,6 +43,9 @@ app.use(cors());
 app.use(clerkMiddleware());
 
 // ROUTES
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
 app.use("/courses", courseRoutes);
 app.use("/users/clerk", requireAuth(), userClerkRoute);
@@ -57,17 +60,16 @@ if (!isProduction) {
   });
 }
 
-// aws production enviroment.
-
+// aws production environment
 const serverlessApp = serverless(app);
 export const handler = async (event: any, context: any) => {
   if (event.action === "seed") {
     await seed();
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Data seed successfully" }),
+      body: JSON.stringify({ message: "Data seeded successfully" }),
     };
   } else {
-    return serverless(event, context);
+    return serverlessApp(event, context);
   }
 };
